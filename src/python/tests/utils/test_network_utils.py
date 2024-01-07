@@ -13,5 +13,5 @@ class TestNetworkUtils(unittest.TestCase):
 		ip = "64.233.160.0"
 		returned_res = NetworkUtils.get_ip_info(ip)
 		expected_res = "United States"
-		self.assertEqual(returned_res, expected_res)
+		self.assertEqual(returned_res["country"], expected_res)
 	

@@ -1,6 +1,7 @@
 import json
 from flask import Flask, request, render_template
 from utils.network_utils import NetworkUtils
+from utils.token_utils import TokenUtils
 
 
 class PlayerUtils:
@@ -24,9 +25,14 @@ class PlayerUtils:
 		if data:
 			for player,player_info in data.items():
 				if ((player_info["player_name"] == player_name) and (player_info["player_pw"] == player_pw)) or \
-					((player_info["player_name"] == player_name) and player_pw == "999"):
+					((player_info["player_name"] == player_name) and player_pw == TokenUtils.get_admin_creds()):
 					data.pop(player)
 					break
 				
 		return data
-		
+	
+	@staticmethod
+	def remove_all_player(data, player_pw) -> dict:
+		if data and player_pw == TokenUtils.get_admin_creds():
+			data = {}		
+		return data

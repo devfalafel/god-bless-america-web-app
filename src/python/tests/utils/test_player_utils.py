@@ -92,7 +92,6 @@ class TestPlayerUtils(unittest.TestCase):
 				
 			}
 		}
-		print(returned_res)
 			
 		self.assertEqual(returned_res, expected_res)
 

@@ -10,7 +10,7 @@ def god_bless_america_web_app():
 
 @app.route('/get-players', methods=['GET'])
 def get_players():
-	# input sanitize 
+	# input sanitizer
 	
     with open('./data/players-data.json') as f:
     data = json.load(f)
@@ -18,20 +18,29 @@ def get_players():
 		
 @app.route('/post-player', methods=['POST'])
 def post_player(player_name, player_pw):
-	# input sanitize
+	# input sanitizer
 	
     with open('./data/players-data.json') as f:
 		data = json.load(f)
 	data = PlayerUtils.add_player(data, player_name, player_pw, request.remote_addr)
 	return render_template('displayPlayers.html', results=data)
 
-@app.route('/post-player', methods=['DELETE'])
-def post_player(player_name, player_pw):
-	# input sanitize
+@app.route('/delete-player', methods=['DELETE'])
+def delete_player(player_name, player_pw):
+	# input sanitizer
 	
     with open('./data/players-data.json') as f:
 		data = json.load(f)
 	data = PlayerUtils.remove_player(data, player_name, player_pw, request.remote_addr)
+	return render_template('displayPlayers.html', results=data)
+	
+@app.route('/delete-all-players', methods=['DELETE'])
+def delete_all_players():
+	# input sanitizer
+	
+    with open('./data/players-data.json') as f:
+		data = json.load(f)
+	data = PlayerUtils.remove_all_player(data, player_pw)
 	return render_template('displayPlayers.html', results=data)
 	
 if __name__ == "__main__":
